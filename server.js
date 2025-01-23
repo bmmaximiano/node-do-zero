@@ -1,41 +1,50 @@
-//import { createServer } from 'node:http'
-//
-//const server = createServer((request,response) => {
-//    
-//    response.write('Hello world')
-//    return response.end()
-//})
-//
-//server.listen(3332)
-
-
 
 import { fastify } from "fastify";
 import { DatabaseMemory } from "./database-memory.js";
 
 const server = fastify()
 
-//POST http://localhost:3332/videos
-//PUT http://localhost:3332/videos
+const database = new DatabaseMemory()
 
-//Rout Parameter
+server.post('/videos', (request, reply) => {
+    const {title, description, duration} = request.body
 
-server.post('/videosTeste', () => {
-    const database = new DatabaseMemory
-    database.creat('TropaDeElite')
-    return database.filme
+    database.create({
+        title,
+        description,
+        duration,
+    })
+    
+    return reply.status(201).send()
+
 })
 
-server.get('/videos', () => {
-    return 'Hello bMax'
+server.get('/videos', (request) => {
+    const search = request.query.search
+
+    console.log(search)
+    const videos = database.list(search)
+    console.log(videos)
+    return videos
 })
 
-server.put('/videos/:id', () => {
-    return 'Hello node.js'
+server.put('/videos/:id', (request,reply) => {
+    const videoId = request.params.id
+    const {title, description, duration} = request.body
+
+    const video = database.update(videoId, {
+        title,
+        description,
+        duration
+    })
+    return reply.status(204).send()
 })
 
-server.delete('/videos/:id', () =>{
-    return 'hello node.js'
+server.delete('/videos/:id', (request, reply) => {
+    const videoId = request.params.id
+    database.delete(videoId)
+
+    return reply.status(204).send()
 })
 
 server.listen(

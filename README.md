@@ -1,4 +1,5 @@
 node-do-zero
+
 Project showcases a API for managing videos using Node.js, Fastify, and PostgreSQL. It offers a scalable solution for storing, organizing, and accessing video data, including metadata and URLs. Implements full CRUD operations. Video Management API
 
 This project is a RESTful API for video management, built with Node.js, Fastify, and PostgreSQL.
