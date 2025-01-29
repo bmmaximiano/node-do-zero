@@ -7,7 +7,11 @@ This project is a RESTful API for video management, built with Node.js, Fastify,
 Technologies
 Node.js: JavaScript runtime environment.
 Fastify: Node.js web framework focused on performance.
-PostgreSQL: Relational database.
+PostgreSQL:
+    Relational database.
+    data base host: neon.tech
+    host: render.com
+    url:https://node-do-zero-9rxd.onrender.com
 [Other dependencies: List other important libraries, such as pg for PostgreSQL connection, validation libraries, etc.]
 Features
 Video CRUD:
@@ -56,3 +60,4 @@ CREATE TABLE videos (
 Running the application
 npm run dev # or yarn dev (for development with hot-reload)
 npm start # or yarn start (for production)
+
