@@ -1,10 +1,12 @@
 
 import { fastify } from "fastify";
 import { DatabaseMemory } from "./database-memory.js";
+import { DatabasePostegres } from "./database-postegres.js";
 
 const server = fastify()
 
-const database = new DatabaseMemory()
+//const database = new DatabaseMemory()
+const database = new DatabasePostegres()
 
 server.post('/videos', (request, reply) => {
     const {title, description, duration} = request.body
@@ -28,11 +30,11 @@ server.get('/videos', (request) => {
     return videos
 })
 
-server.put('/videos/:id', (request,reply) => {
+server.put('/videos/:id', async (request,reply) => {
     const videoId = request.params.id
     const {title, description, duration} = request.body
 
-    const video = database.update(videoId, {
+    await database.update(videoId, {
         title,
         description,
         duration
